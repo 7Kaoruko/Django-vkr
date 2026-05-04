@@ -1,0 +1,89 @@
+{% extends "main/layout.html" %}
+{% block title %}О платформе — Cyberdu{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Заголовок -->
+    <div class="text-center mb-5 pb-2">
+        <h1 class="section-header-title">О платформе</h1>
+        <p class="about-page-subtitle">
+            NOVA — платформа для изучения информационной безопасности
+        </p>
+    </div>
+
+    <!-- Основной блок -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="about-page-card">
+                <div class="about-page-intro">
+                    <h2 class="about-page-title">Почему была создана платформа NOVA?</h2>
+                    <p class="about-page-lead">
+                        NOVA — это бесплатная образовательная платформа, созданная для студентов,
+                        специалистов и всех, кто хочет разобраться в мире информационной безопасности.
+                    </p>
+                </div>
+
+                <div class="about-page-content">
+                    <p>
+                        Мы собрали структурированные материалы, тесты и практические задания,
+                        чтобы обучение было удобным, понятным и эффективным.
+                        От основ до продвинутых тем — всё в одном месте, без лишней воды и рекламы.
+                    </p>
+
+                    <p>
+                        Платформа постоянно развивается: материалы обновляются,
+                        добавляются новые темы, тесты и сертификаты.
+                        Мы стремимся сделать качественное образование по информационной безопасности доступным каждому.
+                    </p>
+
+                    <p>
+                        NOVA помогает не только читать теорию, но и закреплять знания с помощью тестирования,
+                        отслеживать результаты и видеть собственный прогресс в обучении.
+                    </p>
+                </div>
+
+                <div class="about-page-highlights">
+                    <div class="about-highlight">
+                        <span class="about-highlight-number">10+</span>
+                        <span class="about-highlight-text">Тем обучения</span>
+                    </div>
+
+                    <div class="about-highlight">
+                        <span class="about-highlight-number">100+</span>
+                        <span class="about-highlight-text">Тестовых вопросов</span>
+                    </div>
+
+                    <div class="about-highlight">
+                        <span class="about-highlight-number">24/7</span>
+                        <span class="about-highlight-text">Доступ к платформе</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сообщество -->
+    <div class="about-community text-center mt-5">
+        <h3 class="about-community-title">Присоединяйся к нам</h3>
+        <p class="about-community-text">
+            Следи за обновлениями платформы, общайся с сообществом и узнавай больше о кибербезопасности.
+        </p>
+
+        <div class="social-links d-flex justify-content-center gap-4 flex-wrap">
+            <a href="#" class="social-link" aria-label="Telegram">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Discord">
+                <i class="fa-brands fa-discord"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

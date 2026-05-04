@@ -1,0 +1,64 @@
+{% extends "main/layout.html" %}
+{% block title %}{{ test.title }}{% endblock %}
+
+{% block content %}
+<div class="test-page">
+
+    <div class="test-header">
+        <span class="test-badge">Тестирование</span>
+        <h1 class="test-title">{{ test.title }}</h1>
+        <p class="test-subtitle">
+            Ответьте на вопросы и проверьте свои знания.
+        </p>
+    </div>
+
+    <form method="post" class="test-box">
+        {% csrf_token %}
+
+        {% for question in questions %}
+        <div class="question-card">
+             <div class="question-error">Выберите ответ</div>
+            <h3 class="question-title">
+                {{ forloop.counter }}. {{ question.text }}
+            </h3>
+
+            <div class="answers-list">
+                {% for answer in question.answers.all %}
+                <label class="answer-item">
+                    <input type="radio"
+                           name="question_{{ question.id }}"
+                           value="{{ answer.id }}">
+                    <div class="answer-content">
+                        {{ answer.text }}
+                    </div>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if guest_mode %}
+            <div class="guest-lock-box">
+                <h3 class="guest-lock-title">Продолжение доступно после входа</h3>
+                <p class="guest-lock-text">
+                    Вы можете попробовать только первый вопрос. Чтобы пройти тест полностью,
+                    войдите в аккаунт или зарегистрируйтесь.
+                </p>
+
+                <div class="guest-lock-actions">
+                    <a href="{% url 'login' %}" class="lesson-btn lesson-btn-primary">Войти</a>
+                    <a href="{% url 'signup' %}" class="lesson-btn lesson-btn-secondary">Регистрация</a>
+                </div>
+            </div>
+
+            <button type="submit" class="test-submit-btn">
+                Проверить пробный вопрос
+            </button>
+        {% else %}
+            <button type="submit" class="test-submit-btn">
+                Завершить тест
+            </button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

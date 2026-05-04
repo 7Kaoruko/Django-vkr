@@ -1,0 +1,40 @@
+{% extends "main/layout.html" %}
+{% block title %}{{ lesson.title }}{% endblock %}
+
+{% block content %}
+<div class="lesson-page">
+    <div class="lesson-header">
+
+        <h1 class="lesson-title">{{ lesson.title }}</h1>
+        <p class="lesson-subtitle">
+            Изучите материал по теме и после этого переходите к тестированию.
+        </p>
+    </div>
+
+    <div class="lesson-content-box">
+        <div class="lesson-content">
+            {{ lesson.content|linebreaks }}
+        </div>
+
+        <div class="lesson-actions">
+
+            <!-- Назад -->
+            <a href="{% url 'study' %}" class="lesson-btn lesson-btn-secondary">
+                Назад к темам
+            </a>
+
+            <!-- Переход к тесту -->
+            {% if lesson.topic.tests.first %}
+                <a href="{% url 'test_detail' lesson.topic.tests.first.id %}" class="lesson-btn lesson-btn-primary">
+                    Перейти к тесту
+                </a>
+            {% else %}
+                <span class="lesson-btn lesson-btn-secondary">
+                    Тест пока не добавлен
+                </span>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

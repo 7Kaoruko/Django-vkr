@@ -1,0 +1,124 @@
+{% extends "main/layout.html" %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-wrapper">
+        <div class="hero-content">
+            <span class="hero-badge">Платформа для обучения и тестирования</span>
+
+            <h1 class="hero-title">
+                Изучай основы
+                <span class="hero-title-break">информационной безопасности</span>
+                вместе с нами
+            </h1>
+
+            <p class="hero-text">
+                Веб-приложение помогает изучать ключевые темы по кибербезопасности,
+                проходить тесты и проверять уровень своих знаний в удобном формате.
+            </p>
+
+            <div class="hero-actions">
+                <a href="{% url 'study' %}" class="hero-btn hero-btn-primary">Начать обучение</a>
+                <a href="{% url 'tests' %}" class="hero-btn hero-btn-secondary">Пройти тест</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="section-header">
+        <h2>Возможности платформы</h2>
+        <p>Основные функции веб-приложения для студентов и преподавателей</p>
+    </div>
+
+    <div class="features-grid">
+        <article class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h3>Обучение</h3>
+            <p>
+                Изучение теоретических материалов по основам информационной безопасности:
+                угрозы, защита данных, пароли, социальная инженерия и другое.
+            </p>
+        </article>
+
+        <article class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <h3>Тестирование</h3>
+            <p>
+                Проверка знаний с помощью тестов. Пользователь может пройти задания
+                и узнать свой результат сразу после завершения.
+            </p>
+        </article>
+
+        <article class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3>Результаты</h3>
+            <p>
+                Отслеживание прогресса обучения и анализ успешности прохождения тестов
+                по различным темам информационной безопасности.
+            </p>
+        </article>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="about-box">
+        <div class="about-text">
+            <h2>Почему это важно?</h2>
+            <p>
+                Информационная безопасность играет важную роль в современном цифровом мире.
+                Пользователи ежедневно сталкиваются с угрозами: фишингом, вредоносным ПО,
+                утечкой данных и социальной инженерией.
+            </p>
+            <p>
+                Платформа NOVA создана для того, чтобы помочь студентам изучить основы
+                защиты информации, закрепить знания на практике и сформировать навыки
+                безопасного поведения в сети.
+            </p>
+        </div>
+
+        <div class="about-side">
+            <div class="mini-stat">
+                <span class="mini-stat-number">10+</span>
+                <span class="mini-stat-text">Тем обучения</span>
+            </div>
+            <div class="mini-stat">
+                <span class="mini-stat-number">100+</span>
+                <span class="mini-stat-text">Тестовых вопросов</span>
+            </div>
+            <div class="mini-stat">
+                <span class="mini-stat-number">24/7</span>
+                <span class="mini-stat-text">Доступ к обучению</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    {% if user.is_authenticated %}
+        <div class="cta-box cta-authenticated">
+            <h2>Привет, {{ user.username }}!</h2>
+            <p>Ты уже в системе. Продолжай обучение или проверь свои знания.</p>
+            <div class="hero-actions cta-buttons">
+                <a href="{% url 'study' %}" class="hero-btn hero-btn-primary">Продолжить обучение</a>
+                <a href="{% url 'tests' %}" class="hero-btn hero-btn-secondary">Пройти тест</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="cta-box">
+            <h2>Готов начать обучение?</h2>
+            <p>Зарегистрируйся и получи доступ к учебным материалам и тестированию.</p>
+            <div class="hero-actions cta-buttons">
+                <a href="{% url 'signup' %}" class="hero-btn hero-btn-primary">Зарегистрироваться</a>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

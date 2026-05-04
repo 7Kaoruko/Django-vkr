@@ -1,0 +1,61 @@
+{% extends "main/layout.html" %}
+{% block title %}Поиск{% endblock %}
+
+{% block content %}
+<div class="search-results-page">
+    <h1 class="page-title">Результаты поиска</h1>
+
+    {% if query %}
+        <p class="page-subtitle">
+            Результаты по запросу: <strong>{{ query }}</strong>
+        </p>
+    {% else %}
+        <p class="page-subtitle">
+            Введите поисковый запрос.
+        </p>
+    {% endif %}
+
+    {% if topic_results or lesson_results %}
+
+        {% if topic_results %}
+            <h2 class="search-section-title">Темы</h2>
+            <div class="search-grid">
+                {% for topic in topic_results %}
+                    <div class="search-card">
+                        <h3>{{ topic.title }}</h3>
+                        <p>{{ topic.description }}</p>
+
+                        {% if topic.lessons.first %}
+                            <a href="{% url 'lesson_detail' topic.lessons.first.id %}" class="search-btn">
+                                Открыть тему
+                            </a>
+                        {% else %}
+                            <span class="search-btn search-btn-disabled">
+                                Материал не добавлен
+                            </span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if lesson_results %}
+            <h2 class="search-section-title">Теоретические материалы</h2>
+            <div class="search-grid">
+                {% for lesson in lesson_results %}
+                    <div class="search-card">
+                        <h3>{{ lesson.title }}</h3>
+                        <p>{{ lesson.highlighted_content|truncatechars:180|safe }}</p>
+                        <a href="{% url 'lesson_detail' lesson.id %}" class="search-btn">
+                            Открыть
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    {% elif query %}
+        <p class="search-empty">Ничего не найдено.</p>
+    {% endif %}
+</div>
+{% endblock %}

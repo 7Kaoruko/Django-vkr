@@ -1,0 +1,124 @@
+{% extends "main/layout.html" %}
+{% block title %}Профиль — {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="profile-card">
+                <div class="profile-header">
+
+                    <!-- Аватар -->
+                    <div class="profile-avatar">
+                        {% if profile_obj.avatar %}
+                            <img src="{{ profile_obj.avatar.url }}" alt="Аватар пользователя" class="profile-avatar-img">
+                        {% else %}
+                            <i class="fa-solid fa-user"></i>
+                        {% endif %}
+                    </div>
+
+                    <!-- Смена аватара -->
+                    <form method="post" enctype="multipart/form-data" class="avatar-form">
+                        {% csrf_token %}
+                        <input type="file" name="avatar" id="id_avatar" class="avatar-input" accept="image/*">
+
+                        <label for="id_avatar" class="change-photo-label">
+                            Изменить фото
+                        </label>
+                    </form>
+
+                    <!-- Информация -->
+                    <h2 class="profile-username">{{ user.username }}</h2>
+
+                    <p class="profile-email">
+                        {% if user.email %}
+                            {{ user.email }}
+                        {% else %}
+                            Email не указан
+                        {% endif %}
+                    </p>
+
+                    <div class="profile-date">
+                        Зарегистрирован: {{ user.date_joined|date:"d.m.Y в H:i" }}
+                    </div>
+                </div>
+
+                <!-- ===== Статистика ===== -->
+                <div class="profile-stats">
+                        <div class="stat-box">
+                           <div class="stat-number">{{ lessons_passed }}</div>
+                           <div class="stat-label">Уроков пройдено</div>
+                        </div>
+
+                    <div class="stat-box">
+                      <div class="stat-number">{{ tests_passed }}</div>
+                       <div class="stat-label">Тестов сдано</div>
+                    </div>
+
+                       <div class="stat-box">
+                            <div class="stat-number">
+                                {% if avg_score %}
+                                   {{ avg_score }}
+                                {% else %}
+
+                                {% endif %}
+                             </div>
+                       <div class="stat-label">Средний балл</div>
+                  </div>
+
+    <div class="stat-box stat-box-level">
+        <div class="stat-number">{{ level }}</div>
+        <div class="stat-label">Уровень</div>
+    </div>
+                </div>
+
+                <!-- ===== Прогресс ===== -->
+                <div class="profile-progress-block">
+                    <div class="progress-header">
+                        <h3 class="progress-title">Общий прогресс</h3>
+                        <span class="progress-percent">{{ progress_percent }}%</span>
+                    </div>
+
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" style="width: {{ progress_percent }}%;"></div>
+                    </div>
+
+                    <p class="progress-text">
+                        Пройдено тестов: {{ tests_passed }} из {{ total_tests }}
+                    </p>
+                </div>
+
+                <!-- ===== Действия ===== -->
+                <div class="profile-actions">
+                    <a href="{% url 'password_change' %}" class="auth-link profile-action">
+                        <i class="fa-solid fa-key me-2"></i>
+                        Изменить пароль
+                    </a>
+
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="auth-link profile-action logout-action">
+                            <i class="fa-solid fa-right-from-bracket me-2"></i>
+                            Выйти из аккаунта
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("id_avatar");
+
+    if (input) {
+        input.addEventListener("change", function () {
+            this.form.submit();
+        });
+    }
+});
+</script>
+{% endblock %}

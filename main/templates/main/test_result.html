@@ -1,0 +1,83 @@
+{% extends "main/layout.html" %}
+{% block title %}Результат{% endblock %}
+
+{% block content %}
+<div class="result-page">
+    <div class="result-box">
+        <span class="result-badge">Результат теста</span>
+        <h1 class="result-title">{{ test.title }}</h1>
+
+        {% if guest_mode %}
+            <p class="result-score">
+                Пробный результат: <strong>{{ score }}</strong> из <strong>{{ total }}</strong>
+            </p>
+            <div class="guest-lock-box">
+                <h3 class="guest-lock-title">Чтобы пройти тест полностью — войдите в систему</h3>
+                <p class="guest-lock-text">
+                    Полный результат, сохранение прогресса и прохождение всех вопросов
+                    доступны только после входа или регистрации.
+                </p>
+                <div class="guest-lock-actions">
+                    <a href="{% url 'login' %}" class="lesson-btn lesson-btn-primary">Войти</a>
+                    <a href="{% url 'signup' %}" class="lesson-btn lesson-btn-secondary">Регистрация</a>
+                </div>
+            </div>
+        {% else %}
+            <p class="result-score">
+                Вы набрали <strong>{{ score }}</strong> из <strong>{{ total }}</strong>
+            </p>
+        {% endif %}
+
+        <div class="result-details">
+            {% for item in results_data %}
+                <div class="result-question-card">
+                    <h3 class="result-question-title">
+                        {{ forloop.counter }}. {{ item.question.text }}
+                    </h3>
+
+                    <div class="result-answers-list">
+                        {% for answer in item.question.answers.all %}
+                            <div class="
+                                result-answer-item
+                                {% if answer.id == item.correct %} correct-answer {% endif %}
+                                {% if answer.id == item.selected and not item.is_correct %} wrong-answer {% endif %}
+                                {% if answer.id == item.selected and item.is_correct %} selected-correct-answer {% endif %}
+                            ">
+                                {{ answer.text }}
+
+                                {% if answer.id == item.correct %}
+                                    <span class="answer-badge correct-badge">Правильный</span>
+                                {% endif %}
+
+                                {% if answer.id == item.selected and not item.is_correct %}
+                                    <span class="answer-badge wrong-badge">Ваш ответ</span>
+                                {% endif %}
+
+                                {% if answer.id == item.selected and item.is_correct %}
+                                    <span class="answer-badge selected-badge">Ваш ответ</span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="result-actions">
+            <a href="{% url 'tests' %}" class="result-btn result-btn-primary">
+                К тестам
+            </a>
+
+            {% if guest_mode %}
+                <a href="{% url 'signup' %}" class="result-btn result-btn-secondary">
+                    Зарегистрироваться
+                </a>
+            {% else %}
+                <a href="{% url 'test_detail' test.id %}" class="result-btn result-btn-secondary">
+                    Пройти ещё раз
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

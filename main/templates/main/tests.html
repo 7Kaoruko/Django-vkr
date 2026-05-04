@@ -1,0 +1,53 @@
+{% extends "main/layout.html" %}
+{% block title %}Тесты{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <h1 class="section-header-title text-center mb-5">Тесты</h1>
+
+    <div class="row g-4">
+        {% for test in tests %}
+        <div class="col-lg-4 col-md-6">
+            <div class="test-card fade-in">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <h3 class="card-title">{{ test.title }}</h3>
+
+                <p class="card-desc">
+                    {{ test.topic.description|truncatechars:100 }}
+                </p>
+
+                <div class="test-info mt-3">
+
+                    <div class="test-stat">
+                        <i class="fa-solid fa-question-circle"></i>
+                        {{ test.questions.count }} вопросов
+                    </div>
+
+                    {% if test.id in user_tests %}
+                        <div class="test-status passed">
+                            <i class="fa-solid fa-check"></i> Пройден
+                        </div>
+                    {% else %}
+                        <div class="test-status new">
+                            <i class="fa-solid fa-circle"></i> Не пройден
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                <a href="{% url 'test_detail' test.id %}" class="btn btn-action mt-4">
+                    Начать тест
+                </a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
