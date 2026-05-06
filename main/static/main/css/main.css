@@ -1,6 +1,21 @@
 body {
    background: #2c2c2c;
 }
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.site-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+}
 
 .site-header{
   background:#181818;
