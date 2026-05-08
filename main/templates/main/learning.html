@@ -3,15 +3,21 @@
 
 {% block content %}
 <div class="container py-5">
+
     <div class="text-center mb-5 pb-4 position-relative">
         <div class="header-glow"></div>
-        <h1 class="study-main-title">Раздел Обучение</h1>
+
+        <h1 class="study-main-title">
+            Раздел Обучение
+        </h1>
+
         <p class="study-main-subtitle">
             Выбери тему и начни погружение в информационную безопасность
         </p>
     </div>
 
     <div class="row g-4">
+
         {% for topic in topics %}
             <div class="col-lg-4 col-md-6">
                 <div class="study-card fade-in">
@@ -38,25 +44,29 @@
                             <i class="fa-solid fa-shield-halved"></i>
                         {% endif %}
                     </div>
-
-                    <h3 class="card-title">{{ topic.title }}</h3>
-
+                    <h3 class="card-title">
+                        {{ topic.title }}
+                    </h3>
                     <p class="card-desc">
                         {{ topic.description }}
                     </p>
-
                     {% if topic.lessons.first %}
-                        <a href="{% url 'lesson_detail' topic.lessons.first.id %}" class="btn btn-action mt-4">
+                        <a href="{% url 'lesson_detail' topic.lessons.first.id %}"
+                           class="btn btn-action mt-4">
                             Начать
                         </a>
                     {% else %}
-                        <span class="btn btn-action mt-4 disabled" style="pointer-events: none; opacity: 0.6;">
+                        <span class="btn btn-action mt-4 disabled"
+                              style="pointer-events: none; opacity: 0.6;">
                             Урок пока не добавлен
                         </span>
                     {% endif %}
                 </div>
+
             </div>
         {% endfor %}
+
     </div>
+
 </div>
 {% endblock %}

@@ -9,7 +9,7 @@
             <div class="profile-card">
                 <div class="profile-header">
 
-                    <!-- Аватар -->
+
                     <div class="profile-avatar">
                         {% if profile_obj.avatar %}
                             <img src="{{ profile_obj.avatar.url }}" alt="Аватар пользователя" class="profile-avatar-img">
@@ -17,8 +17,6 @@
                             <i class="fa-solid fa-user"></i>
                         {% endif %}
                     </div>
-
-                    <!-- Смена аватара -->
                     <form method="post" enctype="multipart/form-data" class="avatar-form">
                         {% csrf_token %}
                         <input type="file" name="avatar" id="id_avatar" class="avatar-input" accept="image/*">
